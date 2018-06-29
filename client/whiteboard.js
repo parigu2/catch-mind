@@ -5,14 +5,14 @@
  *
  * Exports:
  *   - default draw(from, to, color, shouldBroadcast)
- *   - events: an EventEmitter that emits `draw` events.
+ *   - whiteboard: an EventEmitter that emits `draw` events.
  */
 
 import {EventEmitter} from 'events'
 
-const events = new EventEmitter()
+const whiteboard = new EventEmitter()
 
-export default events
+export default whiteboard
 
 //// Canvas setup
 const canvas = document.createElement('canvas')
@@ -39,7 +39,7 @@ export function draw(start, end, strokeColor='black', shouldBroadcast=true) {
     // If shouldBroadcast is truthy, we will emit a draw event to listeners
     // with the start, end and color data.
     shouldBroadcast &&
-        events.emit('draw', start, end, strokeColor);
+        whiteboard.emit('draw', start, end, strokeColor);
 };
 
 // State
