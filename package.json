@@ -5,17 +5,20 @@
   "main": "index.js",
   "author": "instructors@fullstackacademy.com",
   "scripts": {
-    "start": "webpack -w & nodemon server.js --ignore public"
+    "start": "npm run build-watch & npm run start-server",
+    "build-watch": "webpack -w",
+    "start-server": "nodemon server.js --ignore public"
   },
   "dependencies": {
     "express": "^4.12.3"
   },
   "devDependencies": {
-    "babel-core": "^6.26.0",
+    "babel-core": "^6.26.3",
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.0",
     "babel-preset-stage-2": "^6.24.1",
     "nodemon": "^1.17.5",
-    "webpack": "^3.6.0"
+    "webpack": "^4.16.1",
+    "webpack-cli": "^3.1.0"
   }
 }
