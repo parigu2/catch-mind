@@ -13,12 +13,13 @@ const io = socketio(server);
 
 const drawings = {};
 const connections = {};
+const secret = {};
 
 function getDrawing (drawingName) {
   if (drawings[drawingName] === undefined) {
     drawings[drawingName] = {
       connection: 0,
-      pen: []
+      pen: [],
     }
   }
   return drawings[drawingName];
@@ -34,7 +35,8 @@ function leaveRoom (socketId) {
   delete connections[socketId]
   const remaining = --drawings[drawingName].connection;
   if(!remaining) {
-    drawings[drawingName].pen = []
+    drawings[drawingName].pen = [];
+    delete secret[drawingName]
   }
 }
 
@@ -65,7 +67,20 @@ io.on('connection', socket => {
 
 app.get('/', (req, res, next) => {
   res.sendFile(path.join(__dirname, 'public', 'main.html'));
-  console.log(drawings)
+})
+
+app.get('/create/:room/:password', (req, res, next) => {
+  const room = "/" + req.params.room;
+  const password = req.params.password;
+  if (secret[room] == 0) {
+    res.send('true')
+  }
+  if (secret[room] !== undefined) {
+    secret[room] === password ? res.send("true") : res.send('false')
+  } else {
+    secret[room] = password
+    res.send("true")
+  }
 })
 
 app.use(express.static(path.join(__dirname, 'public')))
