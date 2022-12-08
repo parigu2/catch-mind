@@ -10,7 +10,7 @@
     "start-server": "nodemon server.js --ignore public"
   },
   "dependencies": {
-    "express": "^4.12.3",
+    "express": "^4.17.3",
     "socket.io": "^2.2.0"
   },
   "devDependencies": {
